@@ -11,11 +11,9 @@ let position = 0;
 let displayNum = 0;
 let previousDigit = 0;
 let currentDigit = 0;
-let sum = 0;
-let displaySum = sum = 0;
+let displaySum = 0;
 
 updateDisplayInput()
-
 function updateDisplayInput(digit = 0) {
     if (digit === '.' && displayNum.includes('.')) return;
     displayInput.value = displayNum += digit;
@@ -36,8 +34,6 @@ function updateCurrentNumber() {
     inputNumbers[position] = displayNum;
     position = 1
 }
-
-
 
 const operatorsList = getOperatorsListComponent(operatorsWrapper, function onOperatorSelected(sign) {
     console.log('sign: ' + sign);
@@ -63,25 +59,17 @@ const numbersList = getNumbersListComponent(digitsWrapper, function onNumbersSel
 })
 
 function checkInput(sign) {
-    console.log('input: ' + sign);
-    console.log(typeof sign);
     if (typeof sign === 'number') {
-        console.log(sign);
         sign = '' + sign;
         currentDigit += sign;
-        console.log('currentDigit: ' + currentDigit);
-        console.log('previousDigit: ' + previousDigit);
         sign = parseInt(sign);
     }
     else {
         if (currentDigit != 0) {
             previousDigit = currentDigit;
-            console.log('previousDigit: ' + previousDigit);
-            console.log('currentDigit: ' + currentDigit);
             currentDigit = 0;
         }
         else {
-            console.log('its in');
             previousDigit = displaySum;
         }
     }
@@ -104,43 +92,27 @@ function clear() {
 }
 
 function getResultCalc() {
-    console.log('currentDigit: ' + currentDigit);
-    console.log('previousDigit: ' + previousDigit);
-    previousDigit = parseInt(previousDigit);
-    currentDigit = parseInt(currentDigit);
-    let y = previousDigit;
-    let x = currentDigit;
+    let y = parseInt(previousDigit);
+    let x = parseInt(currentDigit);
 
     switch (operator) {
         case '+':
             displaySum = y + x;
-            console.log('displaySum: ' + displaySum);
-            console.log('y: ' + y);
-            console.log('x: ' + x);
             updateDisplayInput(displaySum);
             currentDigit = displaySum;
             break;
         case '-':
             displaySum = y - x;
-            console.log('displaySum: ' + displaySum);
-            console.log('y: ' + y);
-            console.log('x: ' + x);
             updateDisplayInput(displaySum);
             currentDigit = displaySum;
             break;
         case '*':
             displaySum = y * x;
-            console.log('displaySum: ' + displaySum);
-            console.log('y: ' + y);
-            console.log('x: ' + x);
             updateDisplayInput(displaySum);
             currentDigit = displaySum;
             break;
         case '/':
             displaySum = y / x;
-            console.log('displaySum: ' + displaySum);
-            console.log('y: ' + y);
-            console.log('x: ' + x);
             updateDisplayInput(displaySum);
             currentDigit = displaySum;
             break;
