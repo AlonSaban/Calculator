@@ -6,13 +6,13 @@ const digitsWrapper = document.querySelector(".digits")
 const digitsButtons = document.querySelectorAll(".digits button")
 const operatorsButtons = document.querySelectorAll(".operators button")
 const inputNumbers = [0, 0];
-let numArrays = [];
 let operator = '';
 let position = 0;
 let displayNum = 0;
 let previousDigit = 0;
 let currentDigit = 0;
 let sum = 0;
+let displaySum = sum = 0;
 
 updateDisplayInput()
 
@@ -60,14 +60,12 @@ const numbersList = getNumbersListComponent(digitsWrapper, function onNumbersSel
     updateDisplayInput(sign);
     sign = parseInt(sign);
     checkInput(sign)
-    numArrays.push(sign);
 })
 
 function checkInput(sign) {
     console.log('input: ' + sign);
     console.log(typeof sign);
     if (typeof sign === 'number') {
-        console.log('its a number');
         console.log(sign);
         sign = '' + sign;
         currentDigit += sign;
@@ -76,11 +74,16 @@ function checkInput(sign) {
         sign = parseInt(sign);
     }
     else {
-        console.log('not a number');
-        previousDigit = currentDigit;
-        console.log('previousDigit: ' + previousDigit);
-        console.log('currentDigit: ' + currentDigit);
-        currentDigit = 0;
+        if (currentDigit != 0) {
+            previousDigit = currentDigit;
+            console.log('previousDigit: ' + previousDigit);
+            console.log('currentDigit: ' + currentDigit);
+            currentDigit = 0;
+        }
+        else {
+            console.log('its in');
+            previousDigit = displaySum;
+        }
     }
 }
 
@@ -103,7 +106,6 @@ function clear() {
 function getResultCalc() {
     console.log('currentDigit: ' + currentDigit);
     console.log('previousDigit: ' + previousDigit);
-    let displaySum = sum = 0;
     previousDigit = parseInt(previousDigit);
     currentDigit = parseInt(currentDigit);
     let y = previousDigit;
@@ -116,7 +118,7 @@ function getResultCalc() {
             console.log('y: ' + y);
             console.log('x: ' + x);
             updateDisplayInput(displaySum);
-            numArrays = [];
+            currentDigit = displaySum;
             break;
         case '-':
             displaySum = y - x;
@@ -124,7 +126,7 @@ function getResultCalc() {
             console.log('y: ' + y);
             console.log('x: ' + x);
             updateDisplayInput(displaySum);
-            numArrays = [];
+            currentDigit = displaySum;
             break;
         case '*':
             displaySum = y * x;
@@ -132,7 +134,7 @@ function getResultCalc() {
             console.log('y: ' + y);
             console.log('x: ' + x);
             updateDisplayInput(displaySum);
-            numArrays = [];
+            currentDigit = displaySum;
             break;
         case '/':
             displaySum = y / x;
@@ -140,7 +142,7 @@ function getResultCalc() {
             console.log('y: ' + y);
             console.log('x: ' + x);
             updateDisplayInput(displaySum);
-            numArrays = [];
+            currentDigit = displaySum;
             break;
         default:
             return;
